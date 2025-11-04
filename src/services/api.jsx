@@ -1,10 +1,10 @@
 import axios from "axios";
 
-console.log("API_URL: ", import.meta.env)
+console.log("API_URL: ", import.meta.env.APP_API_URL)
 
 // TODO: Create Axios Instance
 const axiosInstance = axios.create({
-    baseURL: `${import.meta.env}/api`,
+    baseURL: `${import.meta.env.APP_API_URL}/api`,
     headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -15,7 +15,7 @@ const axiosInstance = axios.create({
 // TODO: Adding a request interceptor to include JWT and CSRF tokens
 axiosInstance.interceptors.request.use(
     async (config) => {
-        const token = localStorage.getItem(`Bearer ${token}`)
+        const token = localStorage.getItem("JWT_TOKEN")
         if (token) {
             config.headers.Authorization = `Bearer ${token}`
         }
@@ -24,7 +24,7 @@ axiosInstance.interceptors.request.use(
         if (!csrfToken) {
             try {
                 const response = await axios.get(
-                    `${import.meta.env}/api/csrf-token`,
+                    `${import.meta.env.APP_API_URL}/api/csrf-token`,
                     { withCredentials: true }
                 )
                 csrfToken = response.data.token

@@ -5,14 +5,10 @@ const ContextApi = createContext(null);
 
 export const ContextProvider = ({ children }) => {
     // TODO: Find the token in local storage
-    const getToken = localStorage.getItem("JWT_TOKEN")
-        ? JSON.stringify(localStorage.getItem("JWT_TOKEN"))
-        : null
+    const getToken = localStorage.getItem("JWT_TOKEN") || null
 
     // TODO: Find user status from the local storage
-    const isADmin = localStorage.getItem("IS_ADMIN")
-        ? JSON.stringify(localStorage.getItem("IS_ADMIN"))
-        : false
+    const isADmin = localStorage.getItem("IS_ADMIN") || false
 
     // TODO: Store the token, Handle sidebar opening and closing of the admin panel,
     //       Check the logged in user is admin or not

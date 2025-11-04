@@ -1,0 +1,106 @@
+:root{
+    --bg:#fff;      /* page/background */
+    --border:#000;  /* black outline */
+    --text:#111;
+    --label:#555;
+}
+
+.container{ width:680px; max-width:92vw; }
+
+/* ===== Dynamic sizing defaults ===== */
+.entry_area{
+    --h: 72px;             /* field height */
+    --fs: 1.25rem;         /* input font-size */
+    --padX: 22px;          /* horizontal padding */
+    --radius: 10px;        /* corner radius */
+    --label-fs: 1.05rem;   /* label font-size */
+    --mask-h: 1.15em;      /* label mask thickness */
+
+    position:relative;
+    width:100%;
+    height:var(--h);
+}
+
+/* Presets */
+.entry_area[data-size="sm"]{
+    --h:56px; --fs:1rem; --padX:16px; --radius:8px; --label-fs:.95rem; --mask-h:1.05em;
+}
+.entry_area[data-size="md"]{
+    --h:72px; --fs:1.25rem; --padX:22px; --radius:10px; --label-fs:1.05rem; --mask-h:1.15em;
+}
+.entry_area[data-size="lg"]{
+    --h:96px; --fs:1.5rem; --padX:30px; --radius:12px; --label-fs:1.25rem; --mask-h:1.25em;
+}
+
+/* Input: black border, transparent fill */
+.entry_area input{
+    position:absolute;
+    inset:0;
+    box-sizing:border-box;
+    width:100%;
+    height:var(--h);
+    padding:0 var(--padX);
+    font-size:var(--fs);
+    color:var(--text);
+    background:transparent;
+    border:2px solid var(--border);
+    border-radius:var(--radius);
+    outline:none;
+    z-index:1;
+    transition:border-color .15s, box-shadow .15s;
+    caret-color:var(--text);
+}
+
+/* Label INSIDE the border */
+.entry_area .label_line{
+    position:absolute;
+    left:var(--padX);
+    top:50%;
+    transform:translateY(-50%);
+    padding:0 6px;                /* small notch padding */
+    font-size:var(--label-fs);
+    color:var(--label);
+    line-height:1;
+    background:transparent;
+    pointer-events:none;
+    z-index:2;
+    transition:transform .15s, color .15s, top .15s;
+}
+
+/* Mask behind label to hide the border */
+.entry_area .label_line::before{
+    content:"";
+    position:absolute;
+    left:0; right:0;
+    top:50%;
+    height:var(--mask-h);
+    transform:translateY(-50%);
+    background:var(--bg);         /* MUST match page bg */
+    z-index:-1;
+    border-radius:4px;
+}
+
+/* Float label when focused OR when user has typed something */
+.entry_area input:focus + .label_line,
+.entry_area input:not(:placeholder-shown) + .label_line{
+    top:0;
+    transform:translateY(-50%) scale(0.88);
+    color:var(--text);
+}
+
+/* Optional: nicer focus ring */
+.entry_area input:focus{
+    box-shadow:0 0 0 3px rgba(0,0,0,.15);
+}
+
+/* Autofill keeps label floated */
+.entry_area input:-webkit-autofill + .label_line{
+    top:0;
+    transform:translateY(-50%) scale(0.88);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+    .entry_area input,
+    .entry_area .label_line{ transition:none; }
+}

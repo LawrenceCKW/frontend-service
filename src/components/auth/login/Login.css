@@ -1,0 +1,50 @@
+@import url(https://fonts.googleapis.com/css?family=BenchNine:700);
+
+/* Page layout */
+.login_wrap {
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: #f7f7f8;
+}
+
+/* Card */
+.login_card {
+    width: min(720px, 92vw);
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 28px 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+
+/* Title */
+.login_title {
+    margin: 0 0 14px;
+    font-size: 1.75rem;
+    letter-spacing: 0.2px;
+}
+
+/* Field spacing (your InputField controls its own internals) */
+.login_field + .login_field {
+    margin-top: 16px;
+}
+
+/* Actions row */
+.login_actions {
+    margin-top: 22px;
+    display: flex;
+    gap: 12px;
+}
+
+/* Helper */
+.login_helper {
+    margin-top: 10px;
+    color: #666;
+}
+
+/* Make your Button expand if you like */
+.login_actions button {
+    min-width: 160px;
+}
